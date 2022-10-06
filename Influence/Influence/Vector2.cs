@@ -57,5 +57,35 @@ namespace Influence
 
         #endregion
 
+        #region Operators
+
+        public static Vector2 operator +(Vector2 a, Vector2 b)
+            => new Vector2(a.x + b.x, a.y + b.y);
+
+        public static Vector2 operator -(Vector2 a, Vector2 b)
+            => new Vector2(a.x - b.x, a.y - b.y);
+
+        public static Vector2 operator *(Vector2 a, Vector2 b)
+            => new Vector2(a.x * b.x, a.y * b.y);
+        public static Vector2 operator *(Vector2 a, float b)
+            => new Vector2(a.x * b, a.y * b);
+
+        public static Vector2 operator /(Vector2 a, Vector2 b)
+        {
+            if (b.x == 0 || b.y == 0)
+                throw new DivideByZeroException();
+
+            return new Vector2(a.x / b.x, a.y / b.y);
+        }
+        public static Vector2 operator /(Vector2 a, float b)
+        {
+            if(b == 0)
+                throw new DivideByZeroException();
+
+            return new Vector2(a.x / b, a.y / b);
+        }
+
+        #endregion
+
     }
 }
