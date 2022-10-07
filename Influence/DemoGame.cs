@@ -42,25 +42,21 @@ namespace Influence
             if (Input.GetKeyDown(Keys.W))
             {
                 player.transform.Translate(Vector3.up * 100 * Time.deltaTime);
-                Debug.Log("Moving Up");
             }
 
             if (Input.GetKeyDown(Keys.S))
             {
                 player.transform.Translate(Vector3.down * 100 * Time.deltaTime);
-                Debug.Log("Moving Down");
             }
 
             if (Input.GetKeyDown(Keys.A))
             {
                 player.transform.Translate(Vector3.left * 100 * Time.deltaTime);
-                Debug.Log("Moving Left");
             }
 
             if (Input.GetKeyDown(Keys.D))
             {
                 player.transform.Translate(Vector3.right * 100 * Time.deltaTime);
-                Debug.Log("Moving Right");
             }
 
 

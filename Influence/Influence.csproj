@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DemoGame.cs" />
+    <Compile Include="Influence\Component.cs" />
     <Compile Include="Influence\Debug.cs" />
     <Compile Include="Influence\Influence.cs">
       <SubType>Form</SubType>
