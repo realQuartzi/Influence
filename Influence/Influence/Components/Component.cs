@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace Influence
 {
@@ -12,11 +8,13 @@ namespace Influence
         public GameObject gameObject;
         public Transform transform => gameObject.transform;
 
+        public Component() { }
+
         public Component(GameObject parent)
         {
             gameObject = parent;
         }
 
-        public abstract void Render();
+        public abstract void Render(Graphics graphics);
     }
 }

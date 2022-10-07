@@ -136,19 +136,10 @@ namespace Influence
 
             for (int i = 0; i < registeredGameObject.Count; i++)
             {
-                if (registeredGameObject[i] is Shape shape)
+                for(int j = 0; j < registeredGameObject[i].Components.Count; j++)
                 {
-                    graphics.FillRectangle(new SolidBrush(shape.color),
-                        shape.transform.position.x, shape.transform.position.y,
-                        shape.size.x * shape.transform.scale.x, shape.size.y * shape.transform.scale.y);
+                    registeredGameObject[i].Components[j].Render(graphics);
                 }
-                if (registeredGameObject[i] is Sprite sprite)
-                {
-                    graphics.DrawImage(sprite.sprite,
-                        sprite.transform.position.x, sprite.transform.position.y,
-                        sprite.sprite.Width * sprite.transform.scale.x, sprite.sprite.Height * sprite.transform.scale.y);
-                }
-
             }
 
 
