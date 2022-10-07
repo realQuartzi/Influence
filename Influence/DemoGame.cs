@@ -14,6 +14,8 @@ namespace Influence
         protected override void Awake()
         {
             Console.WriteLine("[Awake] Called");
+
+            Sprite sprite = new Sprite(new Vector2(24, 24), new Vector2(12, 12));
         }
 
         protected override void FixedUpdate()
