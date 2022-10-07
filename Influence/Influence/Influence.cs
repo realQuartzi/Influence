@@ -23,6 +23,7 @@ namespace Influence
 
         Window window = null;
         Thread gameLoopThread = null;
+        Thread inputThread = null;
 
         Color backgroundColor = Color.Black;
 
@@ -70,6 +71,9 @@ namespace Influence
             window.Text = title;
             window.Paint += Renderer;
 
+            inputThread = new Thread(InputLoop);
+            inputThread.Start();
+
             gameLoopThread = new Thread(Run);
             gameLoopThread.Start();
 
@@ -105,6 +109,7 @@ namespace Influence
                 window.BeginInvoke((MethodInvoker)delegate { window.Refresh(); });
 
                 LateUpdate();
+                Input.ClearAll();
 
                 float passedTime = 1f / targetFramerate;
 
@@ -114,11 +119,15 @@ namespace Influence
             }
         }
 
-        protected abstract void Initialize();
-        protected abstract void Awake();
-        protected abstract void Start();
+        void InputLoop()
+        {
+            window.KeyDown += KeyDown;
+            window.KeyUp += KeyUp;
+            window.MouseDown += MouseDown;
+            window.MouseUp += MouseUp;
+        }
 
-        private void Renderer(object Sender, PaintEventArgs e)
+        private void Renderer(object sender, PaintEventArgs e)
         {
             Graphics graphics = e.Graphics;
             graphics.Clear(backgroundColor);
@@ -127,7 +136,7 @@ namespace Influence
 
             for (int i = 0; i < registeredGameObject.Count; i++)
             {
-                if(registeredGameObject[i] is Shape shape)
+                if (registeredGameObject[i] is Shape shape)
                 {
                     graphics.FillRectangle(new SolidBrush(shape.color),
                         shape.transform.position.x, shape.transform.position.y,
@@ -139,14 +148,52 @@ namespace Influence
                         sprite.transform.position.x, sprite.transform.position.y,
                         sprite.sprite.Width * sprite.transform.scale.x, sprite.sprite.Height * sprite.transform.scale.y);
                 }
-                
+
             }
 
 
         }
+
+        private void KeyDown(object sender, KeyEventArgs e)
+        {
+            if(!Input.keyDownInputs.Contains(e.KeyCode))
+                Input.keyDownInputs.Add(e.KeyCode);
+        }
+
+        private void KeyUp(object sender, KeyEventArgs e)
+        {
+            if (Input.keyDownInputs.Contains(e.KeyCode))
+                Input.keyDownInputs.Remove(e.KeyCode);
+
+            if(!Input.keyUpInputs.Contains(e.KeyCode))
+                Input.keyUpInputs.Add(e.KeyCode);
+        }
+
+        private void MouseDown(object sender, MouseEventArgs e)
+        {
+            if(!Input.mouseDownInputs.Contains(e.Button))
+                Input.mouseDownInputs.Add(e.Button);
+        }
+
+        private void MouseUp(object sender, MouseEventArgs e)
+        {
+            if (Input.mouseDownInputs.Contains(e.Button))
+                Input.mouseDownInputs.Remove(e.Button);
+
+            if (!Input.mouseUpInputs.Contains(e.Button))
+                Input.mouseUpInputs.Add(e.Button);
+        }
+
+
+        protected abstract void Initialize();
+        protected abstract void Awake();
+        protected abstract void Start();
+
         protected abstract void Update();
+
         protected abstract void FixedUpdate();
         protected abstract void LateUpdate();
+
 
         #endregion
     }
