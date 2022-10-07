@@ -8,19 +8,15 @@ namespace Influence
 
         protected override void Initialize()
         {
-            Console.WriteLine("[Initialized] Called");
         }
 
         protected override void Awake()
         {
-            Console.WriteLine("[Awake] Called");
-
             Sprite sprite = new Sprite(new Vector2(24, 24), new Vector2(12, 12));
         }
 
         protected override void FixedUpdate()
         {
-            Console.WriteLine("[Fixed Update] Fixed Time: " + Time.fixedTime + " | Fixed Delta Time: " + Time.fixedDeltaTime);
         }
 
         protected override void LateUpdate()
@@ -30,15 +26,10 @@ namespace Influence
 
         protected override void Start()
         {
-            Console.WriteLine("[Start] Called");
         }
 
-        int frame = 0;
         protected override void Update()
         {
-            frame++;
-            Console.WriteLine("Frame " + frame);
-            Console.WriteLine("[Update] Time: " + Time.time + " | Delta Time: " + Time.deltaTime);
         }
     }
 }

@@ -45,6 +45,8 @@ namespace Influence
         }
         public Influence(Vector2Int dimensions, string title = "")
         {
+            Debug.Info("Developing Game Window...");
+
             this.width = dimensions.x;
             this.height = dimensions.y;
 
@@ -59,6 +61,8 @@ namespace Influence
 
         void InitializeGame()
         {
+            Debug.Info("Initializing Game Window..");
+
             window = new Window();
             window.Size = new Size(width, height);
             window.Text = title;
@@ -74,6 +78,8 @@ namespace Influence
 
         void Run()
         {
+            Debug.Info("Starting game loop");
+
             Initialize();
 
             Awake();
