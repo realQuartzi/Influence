@@ -21,32 +21,32 @@ namespace Influence
         #region Quick Returns
 
         /// <summary>
-        /// Returns Vector2 : (0,0)
+        /// Returns Vector2Int : (0,0)
         /// </summary>
         public static Vector2Int zero => new Vector2Int(0, 0);
 
         /// <summary>
-        /// Returns Vector2 : (1,1)
+        /// Returns Vector2Int : (1,1)
         /// </summary>
         public static Vector2Int one => new Vector2Int(1, 1);
 
         /// <summary>
-        /// Returns Vector2 : (0,1)
+        /// Returns Vector2Int : (0,1)
         /// </summary>
         public static Vector2Int up => new Vector2Int(0, 1);
 
         /// <summary>
-        /// Returns Vector2 : (0,-1)
+        /// Returns Vector2Int : (0,-1)
         /// </summary>
         public static Vector2Int down => new Vector2Int(0, -1);
 
         /// <summary>
-        /// Returns Vector2 : (-1,0)
+        /// Returns Vector2Int : (-1,0)
         /// </summary>
         public static Vector2Int left => new Vector2Int(-1, 0);
 
         /// <summary>
-        /// Returns Vector2 : (1,0)
+        /// Returns Vector2Int : (1,0)
         /// </summary>
         public static Vector2Int right => new Vector2Int(1, 0);
 
