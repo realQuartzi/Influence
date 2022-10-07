@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace Influence
@@ -41,13 +40,13 @@ namespace Influence
         {
             if (Input.GetKeyDown(Keys.W))
             {
-                player.transform.Translate(Vector3.up * 100 * Time.deltaTime);
+                player.transform.Translate(Vector3.up * 100 * -Time.deltaTime);
                 Debug.Log("Moving Up");
             }
 
             if (Input.GetKeyDown(Keys.S))
             {
-                player.transform.Translate(Vector3.down * 100 * Time.deltaTime);
+                player.transform.Translate(Vector3.down * 100 * -Time.deltaTime);
                 Debug.Log("Moving Down");
             }
 
