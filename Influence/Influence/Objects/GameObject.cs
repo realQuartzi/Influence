@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Influence
 {
@@ -11,6 +7,32 @@ namespace Influence
         public string tag = "Default";
         public int layer = 0;
         public Transform transform = new Transform();
+
+        List<Component> components = new List<Component>();
+        public List<Component> Components => components;
+
+        public Component AddComponent(Component component)
+        {
+            if(component is Component c)
+            {
+                Debug.Log("Adding Component");
+                c.gameObject = this;
+                components.Add(c);
+                return c;
+            }
+
+            return null;
+        }
+        public Component GetComponent(Component component)
+        {
+            foreach (Component comp in components)
+            {
+                if (comp.Equals(component))
+                    return comp;
+            }
+
+            return null;
+        }
 
         public GameObject()
         {
