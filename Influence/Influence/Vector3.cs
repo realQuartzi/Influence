@@ -20,6 +20,12 @@ namespace Influence
             this.y = y;
             this.z = z;
         }
+        public Vector3(float x, float y)
+        {
+            this.x = x;
+            this.y = y;
+            this.z = 0;
+        }
 
         #region Quick Returns
 

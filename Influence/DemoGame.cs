@@ -16,6 +16,9 @@ namespace Influence
             new Shape(new Vector2(12, 12), new Vector3(24, 24,0));
             new Shape(new Vector2(12, 12), new Vector3(48, 48, 0), Color.Red);
             new Shape(new Vector2(32, 32), new Vector3(128, 128, 0), Color.Aqua);
+
+            new Sprite("Ensoul", new Vector3(64,64));
+            new Sprite("Ensoul", new Vector3(256, 256), new Vector3(5,5,5));
         }
 
         protected override void FixedUpdate()
