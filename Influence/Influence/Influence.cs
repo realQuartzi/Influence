@@ -26,6 +26,8 @@ namespace Influence
 
         Color backgroundColor = Color.Black;
 
+        public Vector2 cameraPosition = new Vector2();
+
         static List<GameObject> registeredGameObject = new List<GameObject>();
         public static void RegisterGameObject(GameObject sprite) => registeredGameObject.Add(sprite);
         public static void UnRegisterGameObject(GameObject sprite) => registeredGameObject.Remove(sprite);
@@ -121,6 +123,8 @@ namespace Influence
             Graphics graphics = e.Graphics;
             graphics.Clear(backgroundColor);
 
+            graphics.TranslateTransform(cameraPosition.x, cameraPosition.y);
+
             for (int i = 0; i < registeredGameObject.Count; i++)
             {
                 if(registeredGameObject[i] is Shape shape)
@@ -137,6 +141,8 @@ namespace Influence
                 }
                 
             }
+
+
         }
         protected abstract void Update();
         protected abstract void FixedUpdate();
