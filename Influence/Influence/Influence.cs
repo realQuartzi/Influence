@@ -30,13 +30,35 @@ namespace Influence
         public static void RegisterSprite(Sprite sprite) => registeredSprites.Add(sprite);
         public static void UnRegisterSprite(Sprite sprite) => registeredSprites.Remove(sprite);
 
-        public Influence(int width, int height, string title)
+        public Influence(int width, int height, string title = "")
         {
             this.width = width;
             this.height = height;
+
+            if (title == "")
+                title = "New Project";
+
             this.title = title;
             this.targetFramerate = 60;
 
+            InitializeGame();
+        }
+        public Influence(Vector2Int dimensions, string title = "")
+        {
+            this.width = dimensions.x;
+            this.height = dimensions.y;
+
+            if (title == "")
+                title = "New Project";
+
+            this.title = title;
+            this.targetFramerate = 60;
+
+            InitializeGame();
+        }
+
+        void InitializeGame()
+        {
             window = new Window();
             window.Size = new Size(width, height);
             window.Text = title;

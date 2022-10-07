@@ -53,6 +53,7 @@
     <Compile Include="Influence\Sprite.cs" />
     <Compile Include="Influence\Time.cs" />
     <Compile Include="Influence\Vector2.cs" />
+    <Compile Include="Influence\Vector2Int.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
