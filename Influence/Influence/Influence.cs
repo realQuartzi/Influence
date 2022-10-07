@@ -15,13 +15,19 @@ namespace Influence
 
     public abstract class Influence
     {
-        int width;
-        int height;
+        int originalWidth;
+        int originalHeight;
         string title;
-        int targetFramerate;
+        public Vector2Int originalScreenSize => new Vector2Int(originalWidth, originalHeight);
+
+        public int targetFramerate;
         float previousTime;
 
         Window window = null;
+
+        public Vector2Int screenSize => new Vector2Int(window.Size.Width, window.Size.Height);
+        public string Title => window.Text;
+
         Thread gameLoopThread = null;
         Thread inputThread = null;
 
@@ -35,8 +41,8 @@ namespace Influence
 
         public Influence(int width, int height, string title = "")
         {
-            this.width = width;
-            this.height = height;
+            this.originalWidth = width;
+            this.originalHeight = height;
 
             if (title == "")
                 title = "New Project";
@@ -50,8 +56,8 @@ namespace Influence
         {
             Debug.Info("Developing Game Window...");
 
-            this.width = dimensions.x;
-            this.height = dimensions.y;
+            this.originalWidth = dimensions.x;
+            this.originalHeight = dimensions.y;
 
             if (title == "")
                 title = "New Project";
@@ -67,9 +73,10 @@ namespace Influence
             Debug.Info("Initializing Game Window..");
 
             window = new Window();
-            window.Size = new Size(width, height);
+            window.Size = new Size(originalWidth, originalHeight);
             window.Text = title;
             window.Paint += Renderer;
+
 
             inputThread = new Thread(InputLoop);
             inputThread.Start();
@@ -115,7 +122,7 @@ namespace Influence
 
                 previousTime = Time.time;
                 Time.time += passedTime;
-                Thread.Sleep((int)(passedTime * 100));
+                Thread.Sleep((int)(passedTime * 1000));
             }
         }
 
@@ -181,7 +188,6 @@ namespace Influence
         protected abstract void Start();
 
         protected abstract void Update();
-
         protected abstract void FixedUpdate();
         protected abstract void LateUpdate();
 

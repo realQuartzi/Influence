@@ -34,18 +34,19 @@ namespace Influence
 
         protected override void Start()
         {
+            
         }
 
         protected override void Update()
         {
             if (Input.GetKeyDown(Keys.W))
             {
-                player.transform.Translate(Vector3.up * 100 * Time.deltaTime);
+                player.transform.Translate(Vector3.up * 100 * -Time.deltaTime);
             }
 
             if (Input.GetKeyDown(Keys.S))
             {
-                player.transform.Translate(Vector3.down * 100 * Time.deltaTime);
+                player.transform.Translate(Vector3.down * 100 * -Time.deltaTime);
             }
 
             if (Input.GetKeyDown(Keys.A))
