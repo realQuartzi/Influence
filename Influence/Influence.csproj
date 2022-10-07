@@ -65,7 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DemoGame.cs" />
-    <Compile Include="Influence\Component.cs" />
+    <Compile Include="Influence\Components\Component.cs" />
     <Compile Include="Influence\Debug.cs" />
     <Compile Include="Influence\Influence.cs">
       <SubType>Form</SubType>
@@ -73,9 +73,9 @@
     <Compile Include="Influence\Input.cs" />
     <Compile Include="Influence\Objects\GameObject.cs" />
     <Compile Include="Influence\Objects\Object.cs" />
-    <Compile Include="Influence\Objects\Transform.cs" />
-    <Compile Include="Influence\Shape.cs" />
-    <Compile Include="Influence\Sprite.cs" />
+    <Compile Include="Influence\Components\Transform.cs" />
+    <Compile Include="Influence\Components\Shape.cs" />
+    <Compile Include="Influence\Components\Sprite.cs" />
     <Compile Include="Influence\Time.cs" />
     <Compile Include="Influence\Vector3.cs" />
     <Compile Include="Influence\Vector2.cs" />
