@@ -69,8 +69,12 @@
     <Compile Include="Influence\Influence.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Influence\Sprite.cs" />
+    <Compile Include="Influence\Objects\GameObject.cs" />
+    <Compile Include="Influence\Objects\Object.cs" />
+    <Compile Include="Influence\Objects\Transform.cs" />
+    <Compile Include="Influence\Shape.cs" />
     <Compile Include="Influence\Time.cs" />
+    <Compile Include="Influence\Vector3.cs" />
     <Compile Include="Influence\Vector2.cs" />
     <Compile Include="Influence\Vector2Int.cs" />
     <Compile Include="Program.cs" />

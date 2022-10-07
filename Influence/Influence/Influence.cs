@@ -26,9 +26,9 @@ namespace Influence
 
         Color backgroundColor = Color.Black;
 
-        static List<Sprite> registeredSprites = new List<Sprite>();
-        public static void RegisterSprite(Sprite sprite) => registeredSprites.Add(sprite);
-        public static void UnRegisterSprite(Sprite sprite) => registeredSprites.Remove(sprite);
+        static List<GameObject> registeredGameObject = new List<GameObject>();
+        public static void RegisterGameObject(GameObject sprite) => registeredGameObject.Add(sprite);
+        public static void UnRegisterGameObject(GameObject sprite) => registeredGameObject.Remove(sprite);
 
         public Influence(int width, int height, string title = "")
         {
@@ -121,9 +121,15 @@ namespace Influence
             Graphics graphics = e.Graphics;
             graphics.Clear(backgroundColor);
 
-            for (int i = 0; i < registeredSprites.Count; i++)
+            for (int i = 0; i < registeredGameObject.Count; i++)
             {
-                graphics.FillRectangle(new SolidBrush(Color.Red), registeredSprites[i].position.x, registeredSprites[i].position.y, registeredSprites[i].scale.x, registeredSprites[i].scale.y);
+                if(registeredGameObject [i] is Shape sprite)
+                {
+                    graphics.FillRectangle(new SolidBrush(sprite.color),
+                        sprite.transform.position.x, sprite.transform.position.y,
+                        sprite.size.x * sprite.transform.scale.x, sprite.size.y * sprite.transform.scale.y);
+                }
+                
             }
         }
         protected abstract void Update();

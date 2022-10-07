@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 namespace Influence
 {
@@ -12,7 +13,9 @@ namespace Influence
 
         protected override void Awake()
         {
-            Sprite sprite = new Sprite(new Vector2(24, 24), new Vector2(12, 12));
+            new Shape(new Vector2(12, 12), new Vector3(24, 24,0));
+            new Shape(new Vector2(12, 12), new Vector3(48, 48, 0), Color.Red);
+            new Shape(new Vector2(32, 32), new Vector3(128, 128, 0), Color.Aqua);
         }
 
         protected override void FixedUpdate()
