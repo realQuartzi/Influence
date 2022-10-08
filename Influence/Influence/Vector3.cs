@@ -44,6 +44,24 @@ namespace Influence
             return $"({x}, {y}, {z})";
         }
 
+        public float magnitude => (float)Math.Sqrt((x * x) + (y * y) + (z * z));
+        public Vector3 normalized => this / magnitude;
+
+        public void Normalize()
+        {
+            Vector3 n = normalized;
+
+            this.x = n.x;
+            this.y = n.y;
+            this.z = n.z;
+        }
+
+        public static float Distance(Vector3 a, Vector3 b)
+        {
+            Vector3 dif = new Vector3(a.x - b.x, a.y - b.y, a.z - b.z);
+            return (float)Math.Sqrt(Math.Pow(dif.x, 2f) + Math.Pow(dif.y, 2f) + Math.Pow(dif.z, 2f));
+        }
+
         #region Quick Returns
 
         /// <summary>
