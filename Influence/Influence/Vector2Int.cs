@@ -28,6 +28,11 @@ namespace Influence
             this.y = (int)vector.y;
         }
 
+        public override string ToString()
+        {
+            return $"({x}, {y})";
+        }
+
         #region Quick Returns
 
         /// <summary>

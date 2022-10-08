@@ -39,6 +39,11 @@ namespace Influence
             this.z = 0;
         }
 
+        public override string ToString()
+        {
+            return $"({x}, {y}, {z})";
+        }
+
         #region Quick Returns
 
         /// <summary>
