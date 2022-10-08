@@ -15,8 +15,7 @@ namespace Influence
 
         protected override void Awake()
         {
-            player = new GameObject("Player").AddComponent(new Shape(16, 16, Color.Red)).gameObject;
-            player.AddComponent(new Sprite("Ensoul"));
+            player = new GameObject("Player").AddComponent(new Sprite("Ensoul")).gameObject;
             player.transform.position = new Vector3(32, 32);
             player.transform.scale = new Vector3(2, 2);
 

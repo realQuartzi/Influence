@@ -20,8 +20,12 @@ namespace Influence
                 return;
 
             graphics.DrawImage(sprite,
-                transform.position.x, transform.position.y,
+                transform.position.x - sprite.Width, transform.position.y - sprite.Height,
                 sprite.Width * transform.scale.x, sprite.Height * transform.scale.y);
+
+#if DEBUG
+            Gizmos.DrawSquare(graphics, transform.position, new Vector3(sprite.Width * transform.scale.x, sprite.Height * transform.scale.y), Color.Green);
+#endif
         }
     }
 }
