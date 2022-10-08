@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace Influence
 {
@@ -8,6 +7,10 @@ namespace Influence
         public DemoGame(): base(512, 512, "Demo Game") { }
 
         GameObject player;
+        Collider playerCol;
+
+        GameObject collisionTest;
+        Collider testCol;
 
         protected override void Initialize()
         {
@@ -15,11 +18,14 @@ namespace Influence
 
         protected override void Awake()
         {
-            player = new GameObject("Player").AddComponent(new Shape(16, 16)).gameObject;
-            player.AddComponent(new Sprite("Ensoul"));
+            player = new GameObject("Player").AddComponent(new Sprite("Ensoul")).gameObject;
+            playerCol = player.AddComponent(new Collider(new Vector2(16,16))) as Collider;
             player.transform.position = new Vector3(32, 32);
             player.transform.scale = new Vector3(2, 2);
 
+            collisionTest = new GameObject("Collider");
+            testCol = collisionTest.AddComponent(new Collider(new Vector2(12, 12))) as Collider;
+            collisionTest.transform.position = new Vector3(64, 64);
         }
 
         protected override void FixedUpdate()
@@ -39,6 +45,12 @@ namespace Influence
 
         protected override void Update()
         {
+            if (Input.GetKeyUp(Keys.Space))
+            {
+                Sprite s = player.GetComponent<Sprite>();
+                s.enabled = !s.enabled;
+            }
+
             if (Input.GetKeyDown(Keys.W))
             {
                 player.transform.Translate(Vector3.up * 100 * -Time.deltaTime);

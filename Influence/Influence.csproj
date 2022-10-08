@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DemoGame.cs" />
+    <Compile Include="Influence\Components\Collider.cs" />
     <Compile Include="Influence\Components\Component.cs" />
     <Compile Include="Influence\Debug.cs" />
     <Compile Include="Influence\Gizmos.cs" />
