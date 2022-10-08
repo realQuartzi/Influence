@@ -17,8 +17,8 @@ namespace Influence
 
         public static void DrawSquare(this Graphics graphics, Vector3 position, Vector3 size)
         {
-            Vector2Int bottomRight = new Vector2Int(position + (size / 2));
-            Vector2Int topLeft = new Vector2Int(position - (size / 2));
+            Vector2Int topLeft = new Vector2Int(position);
+            Vector2Int bottomRight = new Vector2Int(position + size);
 
             Vector2Int bottomLeft = new Vector2Int(topLeft.x, bottomRight.y);
             Vector2Int topRight = new Vector2Int(bottomRight.x, topLeft.y);
@@ -30,8 +30,8 @@ namespace Influence
         }
         public static void DrawSquare(this Graphics graphics, Vector3 position, Vector3 size, Color color)
         {
-            Vector2Int bottomRight = new Vector2Int(position + (size / 2));
-            Vector2Int topLeft = new Vector2Int(position - (size / 2));
+            Vector2Int topLeft = new Vector2Int(position);
+            Vector2Int bottomRight = new Vector2Int(position + size);
 
             Vector2Int bottomLeft = new Vector2Int(topLeft.x, bottomRight.y);
             Vector2Int topRight = new Vector2Int(bottomRight.x, topLeft.y);
