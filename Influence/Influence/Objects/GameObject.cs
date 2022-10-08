@@ -23,15 +23,18 @@ namespace Influence
 
             return null;
         }
-        public Component GetComponent(Component component)
-        {
-            foreach (Component comp in components)
-            {
-                if (comp.Equals(component))
-                    return comp;
-            }
 
-            return null;
+        public T GetComponent<T>()
+        {
+            foreach(Component component in components)
+            {
+                if (component is T t)
+                {
+                    return t;
+                }
+
+            }
+            return default(T);
         }
 
         public GameObject()
@@ -43,7 +46,6 @@ namespace Influence
             this.name = name;
             Influence.RegisterGameObject(this);
         }
-
 
         bool active;
         public bool activeSelf => active;
