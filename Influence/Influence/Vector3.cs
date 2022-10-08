@@ -14,16 +14,28 @@ namespace Influence
             y = 0;
             z = 0;
         }
+        public Vector3(float x, float y)
+        {
+            this.x = x;
+            this.y = y;
+            this.z = 0;
+        }
         public Vector3(float x, float y, float z)
         {
             this.x = x;
             this.y = y;
             this.z = z;
         }
-        public Vector3(float x, float y)
+        public Vector3(Vector2 vector)
         {
-            this.x = x;
-            this.y = y;
+            this.x = vector.x;
+            this.y = vector.y;
+            this.z = 0;
+        }
+        public Vector3(Vector2Int vector)
+        {
+            this.x = vector.x;
+            this.y = vector.y;
             this.z = 0;
         }
 
@@ -97,6 +109,38 @@ namespace Influence
                 throw new DivideByZeroException();
 
             return new Vector3(a.x / b, a.y / b, a.z / b);
+        }
+
+        public static bool operator >(Vector3 a, Vector3 b)
+        {
+            if (a.x > b.x || a.y > b.y || a.z > b.z)
+                return true;
+
+            return false;
+        }
+
+        public static bool operator >=(Vector3 a, Vector3 b)
+        {
+            if (a.x >= b.x || a.y >= b.y || a.z >= b.z)
+                return true;
+
+            return false;
+        }
+
+        public static bool operator <(Vector3 a, Vector3 b)
+        {
+            if (a.x < b.x || a.y < b.y || a.z < b.z)
+                return true;
+
+            return false;
+        }
+
+        public static bool operator <=(Vector3 a, Vector3 b)
+        {
+            if (a.x <= b.x || a.y <= b.y || a.z <= b.z)
+                return true;
+
+            return false;
         }
 
         #endregion

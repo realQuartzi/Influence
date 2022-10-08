@@ -17,6 +17,16 @@ namespace Influence
             this.x = x;
             this.y = y;
         }
+        public Vector2(Vector2Int vector)
+        {
+            this.x = vector.x;
+            this.y = vector.y;
+        }
+        public Vector2(Vector3 vector)
+        {
+            this.x = vector.x;
+            this.y = vector.y;
+        }
 
         #region Quick Returns
 
@@ -78,6 +88,38 @@ namespace Influence
                 throw new DivideByZeroException();
 
             return new Vector2(a.x / b, a.y / b);
+        }
+
+        public static bool operator >(Vector2 a, Vector2 b)
+        {
+            if (a.x > b.x || a.y > b.y)
+                return true;
+
+            return false;
+        }
+
+        public static bool operator >=(Vector2 a, Vector2 b)
+        {
+            if (a.x >= b.x || a.y >= b.y)
+                return true;
+
+            return false;
+        }
+
+        public static bool operator <(Vector2 a, Vector2 b)
+        {
+            if (a.x < b.x || a.y < b.y)
+                return true;
+
+            return false;
+        }
+
+        public static bool operator <=(Vector2 a, Vector2 b)
+        {
+            if (a.x <= b.x || a.y <= b.y)
+                return true;
+
+            return false;
         }
 
         #endregion
