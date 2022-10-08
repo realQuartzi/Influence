@@ -76,7 +76,7 @@ namespace Influence
             window.Size = new Size(originalWidth, originalHeight);
             window.Text = title;
             window.Paint += Renderer;
-
+            window.FormClosing += OnQuit;
 
             inputThread = new Thread(InputLoop);
             inputThread.Start();
@@ -182,6 +182,12 @@ namespace Influence
                 Input.mouseUpInputs.Add(e.Button);
         }
 
+        private void OnQuit(object sender, FormClosingEventArgs e)
+        {
+            inputThread.Abort();
+            gameLoopThread.Abort();
+        }
+
 
         protected abstract void Initialize();
         protected abstract void Awake();
@@ -190,6 +196,7 @@ namespace Influence
         protected abstract void Update();
         protected abstract void FixedUpdate();
         protected abstract void LateUpdate();
+
 
 
         #endregion
