@@ -39,6 +39,11 @@ namespace Influence
         public static void RegisterGameObject(GameObject sprite) => registeredGameObject.Add(sprite);
         public static void UnRegisterGameObject(GameObject sprite) => registeredGameObject.Remove(sprite);
 
+        static List<Collider> registeredCollider = new List<Collider>();
+        public static List<Collider> RegisteredCollider => registeredCollider;
+        public static void RegisterCollider(Collider collider) => registeredCollider.Add(collider);
+        public static void UnRegisterCollider(Collider collider) => registeredCollider.Remove(collider);
+
         public Influence(int width, int height, string title = "")
         {
             this.originalWidth = width;

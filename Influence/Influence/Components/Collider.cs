@@ -13,11 +13,15 @@ namespace Influence
         public Collider(Vector2 size)
         {
             this.size = size;
+
+            Influence.RegisterCollider(this);
         }
         public Collider(Vector2 size, Vector3 offset)
         {
             this.size = size;
             this.offset = offset;
+
+            Influence.RegisterCollider(this);
         }
 
         public static bool IsColliding(Collider a, Collider b)
@@ -33,6 +37,20 @@ namespace Influence
                 return false;
 
             return true;
+        }
+
+        public bool IsColliding(string tag)
+        {
+            foreach(Collider collider in Influence.RegisteredCollider)
+            {
+                if(collider.gameObject.tag == tag)
+                {
+                    if (IsColliding(this, collider))
+                        return true;
+                }
+            }
+
+            return false;
         }
 
         public override void Render(Graphics graphics)

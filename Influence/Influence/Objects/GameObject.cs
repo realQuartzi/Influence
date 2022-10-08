@@ -51,7 +51,19 @@ namespace Influence
         public bool activeSelf => active;
         public void SetActive(bool value) => active = value;
 
-        public void DestroySelf() => Influence.UnRegisterGameObject(this);
+        public void DestroySelf()
+        {
+            for (int i = 0; i < components.Count; i++)
+            {
+                if (components[i] is Collider collider)
+                {
+                    Influence.UnRegisterCollider(collider);
+                }
+            }
+
+            Influence.UnRegisterGameObject(this);
+         }
+
 
         public override bool Equals(object obj)
         {
