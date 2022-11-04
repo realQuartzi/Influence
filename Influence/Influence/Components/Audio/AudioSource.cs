@@ -11,7 +11,11 @@ namespace Influence.Audio
             audioPlayer = new AudioPlayer(fileName, alias);
         }
 
-        public void Play() => audioPlayer.Play();
+        public void Play()
+        {
+            Restart();
+            audioPlayer.Play();
+        }
         public void Stop() => audioPlayer.Stop();
         public void Restart() => audioPlayer.Restart();
 

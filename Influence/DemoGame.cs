@@ -10,6 +10,7 @@ namespace Influence
         GameObject player;
         Collider playerCol;
         AudioSource playerSource;
+        AudioSource playerSource2;
 
         GameObject collisionTest;
         Collider testCol;
@@ -24,7 +25,8 @@ namespace Influence
             Debug.Log("Added Player Collider");
             playerCol = player.AddComponent(new Collider(new Vector2(16,16))) as Collider;
             Debug.Log("Added Audio Source");
-            playerSource = player.AddComponent(new AudioSource("Bop", "bop")) as AudioSource;
+            playerSource = player.AddComponent(new AudioSource("Bop-1.wav", "bop1")) as AudioSource;
+            playerSource2 = player.AddComponent(new AudioSource("Bop-2.wav", "bop2")) as AudioSource;
 
             Debug.Log("Setting Player Position");
             player.transform.position = new Vector3(32, 32);
@@ -59,7 +61,15 @@ namespace Influence
                 Sprite s = player.GetComponent<Sprite>();
                 s.enabled = !s.enabled;
 
-                playerSource.Play();
+                if(s.enabled)
+                {
+                    AudioPlayer.Play("bop1");
+                }
+                else
+                {
+                    AudioPlayer.Play("bop2");
+                }
+
             }
 
             if (Input.GetKeyDown(Keys.W))

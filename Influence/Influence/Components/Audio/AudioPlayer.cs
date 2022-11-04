@@ -22,11 +22,10 @@ namespace Influence.Audio
         public AudioPlayer(string fileName, string audioAlias)
         {
             alias = audioAlias;
-            var di = new DirectoryInfo(GetPathToFileInAssembly("Assets/Audio/" + fileName + ".wav"));
-            Debug.Log("Audio Location: " + GetPathToFileInAssembly("Assets/Audio/" + fileName + ".wav"));
-            audioLocation = GetPathToFileInAssembly("Assets /Audio/" + fileName + ".wav");
+            Debug.Log("Audio Location: " + GetPathToFileInAssembly("Assets\\Audio\\" + fileName));
+            audioLocation = GetPathToFileInAssembly("Assets\\Audio\\" + fileName);
 
-            mciSendString(string.Format("open \"{0}.wav\" type MPEGVideo alias {1}", audioLocation, alias), null, 0, IntPtr.Zero);
+            mciSendString(string.Format("open \"{0}\" alias {1}", audioLocation, alias), null, 0, IntPtr.Zero);
         }
 
         static string GetPathToFileInAssembly(string relativePath)
@@ -36,13 +35,8 @@ namespace Influence.Audio
 
         public void Play()
         {
-            //SoundPlayer player = new SoundPlayer(audioLocation);
-            //player.Play();
-
-            Debug.Log("Trying to play: " + alias);
-
             string cmd = "play {0}";
-            cmd = string.Format(cmd, audioLocation);
+            cmd = string.Format(cmd, alias);
 
             if(loop)
             {
@@ -50,6 +44,40 @@ namespace Influence.Audio
             }
 
             SendCommand(cmd);
+        }
+
+        public static void Play(string alias)
+        {
+            string cmd = "seek {0} to start";
+            cmd = string.Format(cmd, alias);
+
+            mciSendString(cmd, null, 0, IntPtr.Zero);
+
+            cmd = "play {0}";
+            cmd = string.Format(cmd, alias);
+
+            mciSendString(cmd, null, 0, IntPtr.Zero);
+        }
+
+        public static void PlayLooped(string alias)
+        {
+            string cmd = "seek {0} to start";
+            cmd = string.Format(cmd, alias);
+
+            mciSendString(cmd, null, 0, IntPtr.Zero);
+
+            cmd = "play {0} repeat";
+            cmd = string.Format(cmd, alias);
+
+            mciSendString(cmd, null, 0, IntPtr.Zero);
+        }
+
+        public static void Stop(string alias)
+        {
+            string cmd = "stop {0}";
+            cmd = string.Format(cmd, alias);
+
+            mciSendString(cmd, null, 0, IntPtr.Zero);
         }
 
         public void Stop()
@@ -76,44 +104,9 @@ namespace Influence.Audio
             SendCommand(cmd);
         }
 
-        void SendCommand(string cmd)
-        {
-            Debug.Log("Sending Audio Command: " + cmd);
-            Debug.Log("File Location: " + AudioLocation);
-            mciSendString(cmd, null, 0, IntPtr.Zero);
-        }
+        void SendCommand(string cmd) => mciSendString(cmd, null, 0, IntPtr.Zero);
 
         [DllImport("winmm.dll")]
         static extern long mciSendString(string strCommand, StringBuilder strReturn, int iReturnLength, IntPtr hWndCallback);
-
-        public static string ToShortPathName(string longName)
-        {
-            uint bufferSize = 256;
-
-            // don´t allocate stringbuilder here but outside of the function for fast access
-            StringBuilder shortNameBuffer = new StringBuilder((int)bufferSize);
-
-            GetShortPathName(string.Format("\"{0}\"", longName), shortNameBuffer, bufferSize);
-
-            return shortNameBuffer.ToString();
-        }
-
-        public string ShortPath(string longpath)
-        {
-            char[] buffer = new char[256];
-
-            GetShortPathName(longpath, buffer, buffer.Length);
-
-            return new string(buffer);
-        }
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        static extern uint GetShortPathName([MarshalAs(UnmanagedType.LPTStr)] string lpszLongPath, [MarshalAs(UnmanagedType.LPTStr)] StringBuilder lpszShortPath, uint cchBuffer);
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        static extern uint GetShortPathName(string lpszLongPath, char[] lpszShortPath, int cchBuffer);
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, EntryPoint = "GetShortPathNameW", SetLastError = true)]
-        static extern int GetShortPathName(string pathName, StringBuilder shortName, int cbShortName);
     }
 }
