@@ -16,7 +16,7 @@ namespace Influence
 
         public override void Render(Graphics graphics)
         {
-            if (!enabled)
+            if (!enabled || transform == null)
                 return;
 
             graphics.DrawImage(sprite,

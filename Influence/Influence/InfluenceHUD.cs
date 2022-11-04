@@ -7,34 +7,32 @@ using System;
 
 namespace Influence
 {
-    class Window : Form
+    class HUD : Form
     {
-        public Window()
+        public HUD(bool doubleBuffered)
         {
-            this.DoubleBuffered = true;
+            this.DoubleBuffered = doubleBuffered;
         }
     }
 
-    public abstract class Influence
+    public abstract class InfluenceHUD
     {
         int originalWidth;
         int originalHeight;
-        string title;
+
         public Vector2Int originalScreenSize => new Vector2Int(originalWidth, originalHeight);
 
         public int targetFramerate;
         float previousTime;
 
-        Window window = null;
-        public Form mainWindow => window;
+        HUD hud = null;
+        public Form mainWindow => hud;
 
         public Vector2Int screenSize => new Vector2Int(mainWindow.Size.Width, mainWindow.Size.Height);
         public string Title => mainWindow.Text;
 
         Thread gameLoopThread = null;
         Thread inputThread = null;
-
-        Color backgroundColor = Color.Black;
 
         public Vector2 cameraPosition = new Vector2();
 
@@ -47,47 +45,42 @@ namespace Influence
         public static void RegisterCollider(Collider collider) => registeredCollider.Add(collider);
         public static void UnRegisterCollider(Collider collider) => registeredCollider.Remove(collider);
 
-        public Influence(int width, int height, string title = "")
+        public InfluenceHUD()
         {
-            Debug.Info("Developing Application Window...");
+            Debug.Info("Developing Application HUD...");
 
-            this.originalWidth = width;
-            this.originalHeight = height;
+            this.originalWidth = Screen.PrimaryScreen.WorkingArea.Size.Width;
+            this.originalHeight = Screen.PrimaryScreen.WorkingArea.Size.Height;
 
-            if (title == "")
-                title = "New Project";
-
-            this.title = title;
             this.targetFramerate = 60;
 
-            InitializeApplication();
-        }
-        public Influence(Vector2Int dimensions, string title = "")
-        {
-            Debug.Info("Developing Application Window...");
-
-            this.originalWidth = dimensions.x;
-            this.originalHeight = dimensions.y;
-
-            if (title == "")
-                title = "New Project";
-
-            this.title = title;
-            this.targetFramerate = 60;
-
-            InitializeApplication();
+            InitializeHUDApplication();
         }
 
-        void InitializeApplication()
+        void InitializeHUDApplication()
         {
-            Debug.Info("Initializing Application Window...");
+            Debug.Info("Initializing Application HUD...");
 
-            window = new Window();
-            window.Size = new Size(originalWidth, originalHeight);
-            window.Location = new Point(0, 0);
-            window.Text = title;
-            window.Paint += Renderer;
-            window.FormClosing += OnQuit;
+            hud = new HUD(false);
+
+            hud.BackColor = hudColorKey;
+            hud.Size = Screen.PrimaryScreen.WorkingArea.Size;
+            hud.Location = new Point(0, 0);
+            hud.TopMost = true;
+            hud.AllowTransparency = true;
+            hud.BackColor = hudColorKey;
+            hud.TransparencyKey = hudColorKey;
+
+            hud.ShowIcon = false;
+            hud.ShowInTaskbar = false;
+            hud.FormBorderStyle = FormBorderStyle.None;
+
+            originalWindowStyle = (IntPtr)((long)((ulong)GetWindowLong(mainWindow.Handle, -20)));
+            passThroughWindowStyle = (IntPtr)((long)((ulong)(GetWindowLong(mainWindow.Handle, -20) | 0x80000 | 0x20)));
+            SetWindowPassthrough(true);
+
+            hud.Paint += Renderer;
+            hud.FormClosing += OnQuit;
 
             inputThread = new Thread(InputLoop);
             inputThread.Start();
@@ -95,7 +88,8 @@ namespace Influence
             gameLoopThread = new Thread(Run);
             gameLoopThread.Start();
 
-            Application.Run(window);
+            Application.EnableVisualStyles();
+            Application.Run(hud);
         }
 
         #region ApplicationLoop
@@ -124,7 +118,7 @@ namespace Influence
                     FixedUpdate();
                 }
 
-                window.BeginInvoke((MethodInvoker)delegate { window.Refresh(); });
+                hud.BeginInvoke((MethodInvoker)delegate { hud.Refresh(); });
 
                 LateUpdate();
                 Input.ClearAll();
@@ -139,16 +133,16 @@ namespace Influence
 
         void InputLoop()
         {
-            window.KeyDown += KeyDown;
-            window.KeyUp += KeyUp;
-            window.MouseDown += MouseDown;
-            window.MouseUp += MouseUp;
+            hud.KeyDown += KeyDown;
+            hud.KeyUp += KeyUp;
+            hud.MouseDown += MouseDown;
+            hud.MouseUp += MouseUp;
         }
 
         private void Renderer(object sender, PaintEventArgs e)
         {
             Graphics graphics = e.Graphics;
-            graphics.Clear(backgroundColor);
+            graphics.Clear(hudColorKey);
 
             graphics.TranslateTransform(cameraPosition.x, cameraPosition.y);
 
@@ -209,6 +203,32 @@ namespace Influence
         protected abstract void Update();
         protected abstract void FixedUpdate();
         protected abstract void LateUpdate();
+
+        #endregion
+
+
+        #region HUD Stuff
+
+        static IntPtr originalWindowStyle;
+        static IntPtr passThroughWindowStyle;
+
+        static Color hudColorKey = Color.Coral;
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern uint GetWindowLong(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32.dll")]
+        private static extern uint SetWindowLong(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+
+        void SetWindowPassthrough(bool passThrough)
+        {
+            if(passThrough)
+            {
+                SetWindowLong(mainWindow.Handle, -20, passThroughWindowStyle);
+                return;
+            }
+            SetWindowLong(mainWindow.Handle, -20, originalWindowStyle);
+        }
 
         #endregion
     }

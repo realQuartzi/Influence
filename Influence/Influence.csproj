@@ -64,11 +64,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DemoHUD.cs" />
     <Compile Include="DemoGame.cs" />
+    <Compile Include="Influence\Components\Audio\AudioPlayer.cs" />
+    <Compile Include="Influence\Components\Audio\AudioSource.cs" />
     <Compile Include="Influence\Components\Collider.cs" />
     <Compile Include="Influence\Components\Component.cs" />
     <Compile Include="Influence\Debug.cs" />
     <Compile Include="Influence\Gizmos.cs" />
+    <Compile Include="Influence\InfluenceHUD.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Influence\Influence.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,5 +125,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

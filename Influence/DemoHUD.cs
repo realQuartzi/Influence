@@ -1,15 +1,13 @@
-﻿using Influence.Audio;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace Influence
 {
-    class DemoGame : Influence
+    class DemoHUD : InfluenceHUD
     {
-        public DemoGame(): base(512, 512, "Demo Game") { }
+        public DemoHUD(): base() { }
 
         GameObject player;
         Collider playerCol;
-        AudioSource playerSource;
 
         GameObject collisionTest;
         Collider testCol;
@@ -21,15 +19,8 @@ namespace Influence
         protected override void Awake()
         {
             player = new GameObject("Player").AddComponent(new Sprite("Ensoul")).gameObject;
-            Debug.Log("Added Player Collider");
             playerCol = player.AddComponent(new Collider(new Vector2(16,16))) as Collider;
-            Debug.Log("Added Audio Source");
-            playerSource = player.AddComponent(new AudioSource("Bop", "bop")) as AudioSource;
-
-            Debug.Log("Setting Player Position");
             player.transform.position = new Vector3(32, 32);
-
-            Debug.Log("Setting Player Scale");
             player.transform.scale = new Vector3(2, 2);
 
             collisionTest = new GameObject("Collider");
@@ -58,8 +49,6 @@ namespace Influence
             {
                 Sprite s = player.GetComponent<Sprite>();
                 s.enabled = !s.enabled;
-
-                playerSource.Play();
             }
 
             if (Input.GetKeyDown(Keys.W))
