@@ -63,10 +63,12 @@ namespace Influence
 
                 if(s.enabled)
                 {
+                    AudioPlayer.SetVolume("bop2", 0.2f);
                     AudioPlayer.Play("bop1");
                 }
                 else
                 {
+                    AudioPlayer.SetVolume("bop1", 0.4f);
                     AudioPlayer.Play("bop2");
                 }
 

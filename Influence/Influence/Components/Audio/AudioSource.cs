@@ -18,6 +18,7 @@ namespace Influence.Audio
         }
         public void Stop() => audioPlayer.Stop();
         public void Restart() => audioPlayer.Restart();
+        public void SetVolume(float volume) => audioPlayer.SetVolume(volume);
 
         public override void Render(Graphics graphics)
         {

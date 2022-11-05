@@ -3,7 +3,10 @@ using System.IO;
 using System.Media;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Influence.Audio
 {
@@ -24,7 +27,27 @@ namespace Influence.Audio
             alias = audioAlias;
             audioLocation = GetPathToFileInAssembly("Assets\\Audio\\" + fileName);
 
-            mciSendString(string.Format($"open \"{{0}}\" type WaveAudio alias {{1}}", audioLocation, alias), null, 0, IntPtr.Zero);
+            int e = SendCommand(string.Format($"open \"{{0}}\" type MPEGVideo alias {{1}}", audioLocation, alias));
+            Debug.Log("set Error Code: " + e);
+        }
+
+        public void ChangeAudio(string newFileName)
+        {
+            audioLocation = GetPathToFileInAssembly("Assets\\Audio\\" + newFileName);
+
+            SendCommand(string.Format($"open \"{{0}}\" type WaveAudio alias {{1}}", audioLocation, alias));
+        }
+
+        public void SetVolume(float volume)
+        {
+            if (volume > 1)
+                volume = 1;
+            else if (volume < 0)
+                volume = 0;
+
+            int vol = (int)Math.Max(Math.Min(volume * 1000f, 1000f), 0f);
+
+            SendCommand(string.Format("setaudio {0} volume to {1}", this.alias, vol));
         }
 
         static string GetPathToFileInAssembly(string relativePath)
@@ -61,6 +84,22 @@ namespace Influence.Audio
 
         public static void Stop(string alias) => mciSendString("stop " + alias, null, 0, IntPtr.Zero);
 
+        public static void SetVolume(string alias, float volume)
+        {
+            Debug.Log("volume: " + volume);
+
+            volume *= 1000f;
+
+            int vol = (int)(volume < 0 ? 0 : (volume > 1000 ? 1000 : volume));
+
+            Debug.Log("vol: " + vol);
+
+            StringBuilder buffer = new StringBuilder();
+
+            int e = mciSendString(string.Format("setaudio {0} volume to {1}", alias, vol), buffer, 0, IntPtr.Zero);
+            Debug.Log("Error Code: " + e);
+        }
+
         public void Play()
         {
             string cmd = "play " + alias;
@@ -79,9 +118,13 @@ namespace Influence.Audio
 
         public void Restart() =>  SendCommand("seek " + alias + " to start");
 
-        void SendCommand(string cmd) => mciSendString(cmd, null, 0, IntPtr.Zero);
+        int SendCommand(string cmd) => mciSendString(cmd, null, 0, IntPtr.Zero);
 
         [DllImport("winmm.dll")]
-        static extern long mciSendString(string strCommand, StringBuilder strReturn, int iReturnLength, IntPtr hWndCallback);
+        static extern int mciSendString(string strCommand, StringBuilder strReturn, int iReturnLength, IntPtr hWndCallback);
+
+        [DllImport("winmm.dll")]
+        static extern long mciGetErrorString(long fdwError, StringBuilder errorText, int cchErrorText);
+
     }
 }
