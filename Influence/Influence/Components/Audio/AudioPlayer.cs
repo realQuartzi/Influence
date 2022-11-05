@@ -22,10 +22,9 @@ namespace Influence.Audio
         public AudioPlayer(string fileName, string audioAlias)
         {
             alias = audioAlias;
-            Debug.Log("Audio Location: " + GetPathToFileInAssembly("Assets\\Audio\\" + fileName));
             audioLocation = GetPathToFileInAssembly("Assets\\Audio\\" + fileName);
 
-            mciSendString(string.Format("open \"{0}\" alias {1}", audioLocation, alias), null, 0, IntPtr.Zero);
+            mciSendString(string.Format($"open \"{{0}}\" type WaveAudio alias {{1}}", audioLocation, alias), null, 0, IntPtr.Zero);
         }
 
         static string GetPathToFileInAssembly(string relativePath)
@@ -33,18 +32,6 @@ namespace Influence.Audio
             return Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), relativePath);
         }
 
-        public void Play()
-        {
-            string cmd = "play {0}";
-            cmd = string.Format(cmd, alias);
-
-            if(loop)
-            {
-                cmd += " REPEAT";
-            }
-
-            SendCommand(cmd);
-        }
 
         public static void Play(string alias)
         {
@@ -72,37 +59,25 @@ namespace Influence.Audio
             mciSendString(cmd, null, 0, IntPtr.Zero);
         }
 
-        public static void Stop(string alias)
-        {
-            string cmd = "stop {0}";
-            cmd = string.Format(cmd, alias);
+        public static void Stop(string alias) => mciSendString("stop " + alias, null, 0, IntPtr.Zero);
 
-            mciSendString(cmd, null, 0, IntPtr.Zero);
-        }
-
-        public void Stop()
+        public void Play()
         {
-            string cmd = "stop {0}";
-            cmd = string.Format(cmd, alias);
+            string cmd = "play " + alias;
+
+            if (loop)
+            {
+                cmd += " REPEAT";
+            }
 
             SendCommand(cmd);
         }
 
-        public void Dispose()
-        {
-            string cmd = "close {0}";
-            cmd = string.Format(cmd, alias);
+        public void Stop() => SendCommand("stop " + alias);
 
-            SendCommand(cmd);
-        }
+        public void Dispose() => SendCommand("close " + alias);
 
-        public void Restart()
-        {
-            string cmd = "seek {0} to start";
-            cmd = string.Format(cmd, alias);
-
-            SendCommand(cmd);
-        }
+        public void Restart() =>  SendCommand("seek " + alias + " to start");
 
         void SendCommand(string cmd) => mciSendString(cmd, null, 0, IntPtr.Zero);
 

@@ -25,7 +25,7 @@ namespace Influence
             Debug.Log("Added Player Collider");
             playerCol = player.AddComponent(new Collider(new Vector2(16,16))) as Collider;
             Debug.Log("Added Audio Source");
-            playerSource = player.AddComponent(new AudioSource("Bop-1.wav", "bop1")) as AudioSource;
+            playerSource = player.AddComponent(new AudioSource("Bop.mp3", "bop1")) as AudioSource;
             playerSource2 = player.AddComponent(new AudioSource("Bop-2.wav", "bop2")) as AudioSource;
 
             Debug.Log("Setting Player Position");
