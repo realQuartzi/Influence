@@ -91,7 +91,7 @@ namespace Influence
         private void Render()
         {
             // Refresh Windows
-            window.Clear();
+            window?.Clear();
 
             // Set Background Color
             SDL.SDL_SetRenderDrawColor(window.RenderPtr, window.backgroundColor.r, window.backgroundColor.g, window.backgroundColor.b, window.backgroundColor.a);

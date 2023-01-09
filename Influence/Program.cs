@@ -17,7 +17,7 @@ namespace Influence
 
         protected override void Awake()
         {
-            window.SetBackgroundColor(Color.Julie);
+            window?.SetBackgroundColor(Color.Julie);
         }
 
         protected override void FixedUpdate()
@@ -36,6 +36,11 @@ namespace Influence
         }
 
         protected override void LateUpdate()
+        {
+
+        }
+
+        protected override void RenderUpdate()
         {
 
         }

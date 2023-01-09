@@ -1,5 +1,4 @@
-﻿using OpenTK.Windowing.GraphicsLibraryFramework;
-using SDL2;
+﻿using SDL2;
 
 namespace Influence
 {
