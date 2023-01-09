@@ -16,6 +16,10 @@ namespace Influence
         //Thread gameLoopThread;
         //Thread inputThread;
 
+        static List<GameObject> registeredGameObject = new List<GameObject>();
+        public static void RegisterGameObject(GameObject sprite) => registeredGameObject.Add(sprite);
+        public static void UnRegisterGameObject(GameObject sprite) => registeredGameObject.Remove(sprite);
+
         public Application(int width, int height, string title = "")
         {
             if (window != null)
@@ -62,7 +66,6 @@ namespace Influence
                     window.HandlePollEvents(e);
                 }
 
-
                 Update();
 
                 if ((Time.time - Time.fixedTime) > (1f / 30f))
@@ -96,6 +99,14 @@ namespace Influence
             // Set Background Color
             SDL.SDL_SetRenderDrawColor(window.RenderPtr, window.backgroundColor.r, window.backgroundColor.g, window.backgroundColor.b, window.backgroundColor.a);
 
+            for (int i = 0; i < registeredGameObject.Count; i++)
+            {
+                for (int j = 0; j < registeredGameObject[i].Components.Count; j++)
+                {
+                    registeredGameObject[i].Components[j].Render(window);
+                }
+            }
+
             RenderUpdate();
 
             /*
@@ -107,8 +118,6 @@ namespace Influence
             Gizmos.DrawLine(window, new Vector2(160, 256), new Vector2(160-64, 180), Color.Blue);
             Gizmos.DrawLine(window, new Vector2(160 - 64, 180), new Vector2(128, 128), Color.Blue);
             */
-
-            Gizmos.DrawSquare(window, new Vector2(180, 180), new Vector2(36, 36), Color.White);
 
             // Display
             window.Display();

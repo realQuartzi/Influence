@@ -47,7 +47,9 @@ namespace Influence
 
         protected override void Start()
         {
-
+            GameObject shape = new GameObject("Hard_Medal").AddComponent(new Sprite("Hard_Medal")).gameObject;
+            shape.transform.position = new Vector3(1, 1);
+            shape.transform.scale = new Vector3(1, 1);
         }
 
         protected override void Update()

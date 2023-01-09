@@ -19,7 +19,7 @@ namespace Influence
         public ApplicationWindow(int width, int height, string title = "")
         {
             InitSDLVideo();
-            InitSDLAudio();
+            //InitSDLAudio();
 
             windowPtr = SDL.SDL_CreateWindow(title,
                 SDL.SDL_WINDOWPOS_CENTERED, SDL.SDL_WINDOWPOS_CENTERED,
@@ -92,7 +92,7 @@ namespace Influence
 #if DEBUG
                     Debug.Info("Closing Window Requested");
 #endif
-
+                    SDL.SDL_DestroyRenderer(renderPtr);
                     SDL.SDL_DestroyWindow(windowPtr);
                     SDL.SDL_Quit();
                     break;
