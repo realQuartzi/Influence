@@ -67,12 +67,12 @@ namespace Influence
         /// <summary>
         /// Returns Vector3 : (0,0)
         /// </summary>
-        public static Vector3 zero => new Vector3(0, 0,0);
+        public static Vector3 zero => new Vector3(0, 0, 0);
 
         /// <summary>
         /// Returns Vector3 : (1,1)
         /// </summary>
-        public static Vector3 one => new Vector3(1, 1,1);
+        public static Vector3 one => new Vector3(1, 1, 1);
 
         /// <summary>
         /// Returns Vector3 : (0,1)
@@ -87,22 +87,22 @@ namespace Influence
         /// <summary>
         /// Returns Vector3 : (0,1)
         /// </summary>
-        public static Vector3 up => new Vector3(0, 1,0);
+        public static Vector3 up => new Vector3(0, 1, 0);
 
         /// <summary>
         /// Returns Vector3 : (0,-1)
         /// </summary>
-        public static Vector3 down => new Vector3(0, -1,0);
+        public static Vector3 down => new Vector3(0, -1, 0);
 
         /// <summary>
         /// Returns Vector3 : (-1,0)
         /// </summary>
-        public static Vector3 left => new Vector3(-1, 0,0);
+        public static Vector3 left => new Vector3(-1, 0, 0);
 
         /// <summary>
         /// Returns Vector3 : (1,0)
         /// </summary>
-        public static Vector3 right => new Vector3(1, 0,0);
+        public static Vector3 right => new Vector3(1, 0, 0);
 
         #endregion
 
@@ -132,7 +132,7 @@ namespace Influence
         }
         public static Vector3 operator /(Vector3 a, float b)
         {
-            if(b == 0)
+            if (b == 0)
                 throw new DivideByZeroException();
 
             return new Vector3(a.x / b, a.y / b, a.z / b);

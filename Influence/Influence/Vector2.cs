@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenTK.Mathematics;
+using System;
 
 namespace Influence
 {
@@ -93,7 +94,7 @@ namespace Influence
         }
         public static Vector2 operator /(Vector2 a, float b)
         {
-            if(b == 0)
+            if (b == 0)
                 throw new DivideByZeroException();
 
             return new Vector2(a.x / b, a.y / b);

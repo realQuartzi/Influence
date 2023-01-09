@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenTK.Graphics.OpenGL;
+using System;
 
 namespace Influence
 {
@@ -31,5 +32,11 @@ namespace Influence
             Console.WriteLine(string.Format($"[Info] {message}"));
             Console.ForegroundColor = ConsoleColor.White;
         }
+
+        public static void CheckError()
+        {
+
+        }
+
     }
 }

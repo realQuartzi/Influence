@@ -3,9 +3,9 @@ namespace Influence
 {
     static class Time
     {
-        public static float time { get; set; }
-        public static float deltaTime { get; set; }
-        public static float fixedTime { get; set; }
-        public static float fixedDeltaTime { get; set; }
+        public static double time { get; set; }
+        public static double deltaTime { get; set; }
+        public static double fixedTime { get; set; }
+        public static double fixedDeltaTime { get; set; }
     }
 }
