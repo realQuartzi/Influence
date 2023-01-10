@@ -19,7 +19,7 @@ namespace Influence
         public ApplicationWindow(int width, int height, string title = "")
         {
             InitSDLVideo();
-            //InitSDLAudio();
+            InitSDLAudio();
 
             windowPtr = SDL.SDL_CreateWindow(title,
                 SDL.SDL_WINDOWPOS_CENTERED, SDL.SDL_WINDOWPOS_CENTERED,

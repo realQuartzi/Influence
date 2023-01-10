@@ -5,25 +5,28 @@ namespace Influence
     public class Sprite : Component
     {
         public string directory;
-        IntPtr spritePtr;
+        IntPtr texturePtr;
+        IntPtr srcRect;
+
 
         public Sprite(string spriteDirectory)
         {
             directory = spriteDirectory;
-            spritePtr = SDL.SDL_LoadFile($"Assets/Sprites/{directory}.png", out _);
 
+            texturePtr = SDL_image.IMG_LoadTexture(Application.window.RenderPtr, $"Assets/Sprites/{directory}.png");
 
-            if (spritePtr == IntPtr.Zero)
+            if (texturePtr == IntPtr.Zero)
                 Debug.LogWarning("The Sprite '" + directory + "' could not be loaded!");
         }
 
         public override void Render(ApplicationWindow window)
         {
-            if (!enabled || spritePtr == IntPtr.Zero)
+            if (!enabled || texturePtr == IntPtr.Zero)
                 return;
 
 
-            SDL.SDL_RenderCopy(window.RenderPtr, spritePtr, IntPtr.Zero, IntPtr.Zero);
+
+            SDL.SDL_RenderCopy(window.RenderPtr, texturePtr, IntPtr.Zero, IntPtr.Zero);
         }
     }
 }
