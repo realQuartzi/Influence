@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Influence
 {
-    public class Color
+    public struct Color
     {
         public byte r;
         public byte g;

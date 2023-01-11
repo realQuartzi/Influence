@@ -118,6 +118,5 @@ namespace Influence
         public void SetDrawColor(byte r, byte g, byte b, byte a) => SDL.SDL_SetRenderDrawColor(RenderPtr, r, g, b, a);
 
         public void ResetDrawColor() => SDL.SDL_SetRenderDrawColor(RenderPtr, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
-
     }
 }

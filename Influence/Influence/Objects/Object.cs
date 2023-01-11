@@ -12,10 +12,21 @@
 
         #region Operators
 
-        public static bool operator !=(Object a, Object b) => !a.Equals(b);
+        public static bool operator !=(Object a, Object b)
+        {
+            if (a is null)
+                return b is not null;
 
-        public static bool operator ==(Object a, Object b) => a.Equals(b);
+            return !a.Equals(b);
+        }
 
+        public static bool operator ==(Object a, Object b)
+        {
+            if (a is null)
+                return b is null;
+
+            return a.Equals(b);
+        }
         #endregion
     }
 }

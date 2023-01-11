@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-
+﻿
 namespace Influence
 {
     public abstract class Component : Object

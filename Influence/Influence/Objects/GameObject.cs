@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-
+﻿
 namespace Influence
 {
     public class GameObject : Object
