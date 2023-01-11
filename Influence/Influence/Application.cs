@@ -79,7 +79,7 @@ namespace Influence
                 Render();
 
                 LateUpdate();
-                //Input.ClearAll();
+                Input.ClearAll();
 
                 float passedTime = 1f / targetFramerate;
 

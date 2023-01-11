@@ -62,7 +62,27 @@ namespace Influence
 
         protected override void Update()
         {
-            if(time <= 0)
+            if(Input.GetKeyDown(Input.KeyCode.W))
+            {
+                sprite.transform.position.y -= 1;
+            }
+
+            if(Input.GetKeyDown(Input.KeyCode.S))
+            {
+                sprite.transform.position.y += 1;
+            }
+
+            if (Input.GetKeyDown(Input.KeyCode.A))
+            {
+                sprite.transform.position.x -= 1;
+            }
+
+            if (Input.GetKeyDown(Input.KeyCode.D))
+            {
+                sprite.transform.position.x += 1;
+            }
+
+            if (time <= 0)
             {
                 Random rnd = new Random();
 

@@ -96,7 +96,26 @@ namespace Influence
                     SDL.SDL_DestroyWindow(windowPtr);
                     SDL.SDL_Quit();
                     break;
+
+                case SDL.SDL_EventType.SDL_KEYDOWN:
+                    Input.KeyCode down = Input.EventToKeyCode(e);
+
+                    if (!Input.keyDownInputs.Contains(down))
+                        Input.keyDownInputs.Add(down);
+                            break;
+
+                case SDL.SDL_EventType.SDL_KEYUP:
+                    Input.KeyCode up = Input.EventToKeyCode(e);
+
+                    if (Input.keyDownInputs.Contains(up))
+                        Input.keyDownInputs.Remove(up);
+
+                    if (!Input.keyUpInputs.Contains(up))
+                        Input.keyUpInputs.Add(up);
+
+                    break;
             }
+            
         }
 
         /// <summary>
